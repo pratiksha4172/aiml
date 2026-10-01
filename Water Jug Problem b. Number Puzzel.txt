@@ -1,0 +1,63 @@
+from collections import deque
+
+j1, j2 = 4, 3
+visited = set()
+q = deque([(0, 0)])
+
+print("State Space:")
+
+while q:
+    x, y = q.popleft()
+
+    if (x, y) in visited:
+        continue
+
+    visited.add((x, y))
+    print((x, y))
+
+    states = [
+        (4, y), (x, 3), (0, y), (x, 0),
+        (x - min(x, 3-y), y + min(x, 3-y)),
+        (x + min(y, 4-x), y - min(y, 4-x))
+    ]
+
+    for state in states:
+        if state not in visited:
+            q.append(state)
+
+
+b) number puzzle
+
+def show(b):
+    for row in b:
+        print(row)
+    print()
+
+def moves(b):
+    x = y = 0
+
+    for i in range(3):
+        for j in range(3):
+            if b[i][j] == 0:
+                x, y = i, j
+
+    result = []
+
+    for dx, dy in [(-1,0),(1,0),(0,-1),(0,1)]:
+        nx, ny = x+dx, y+dy
+
+        if 0 <= nx < 3 and 0 <= ny < 3:
+            new = [row[:] for row in b]
+            new[x][y], new[nx][ny] = new[nx][ny], new[x][y]
+            result.append(new)
+
+    return result
+
+board = [[1,2,3],[4,0,6],[7,8,5]]
+
+print("Initial State:")
+show(board)
+
+print("Possible Next States:")
+for s in moves(board):
+    show(s)
