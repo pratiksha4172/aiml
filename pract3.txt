@@ -1,0 +1,40 @@
+a. Hill Climbing b. A* Algorithm
+
+
+pts = [(1,5),(6,4),(5,2),(2,1)]
+x,y = 1.0,1.0
+
+def dist(x,y):
+    return sum((x-a)**2+(y-b)**2 for a,b in pts)
+
+while True:
+    cur = dist(x,y)
+    best = min(
+        [(x+.1,y),(x-.1,y),(x,y+.1),(x,y-.1)],
+        key=lambda p: dist(*p)
+    )
+
+    if dist(*best) >= cur:
+        break
+
+    x,y = best
+
+print(f"Optimal: ({x:.2f},{y:.2f}) Dist:{dist(x,y):.2f}")
+
+
+
+GOAL = "_A712345"
+
+def astar():
+    s = ""
+    
+    while s != GOAL:
+        for x in GOAL:
+            if x not in s:
+                s += x
+                print(x, "=>", s)
+                break
+
+    print("Goal:", s)
+
+astar()

@@ -1,0 +1,39 @@
+a. Simulate solution for 4-Queen / N-Queen problem
+
+def is_safe(board, row, col):
+    for r, c in enumerate(board):
+        if c==col or abs(c-col)==abs(r-row):
+            return False
+    return True
+
+def solve(n, board=[]):
+    if len(board)==n:
+        for r in range(n):
+            print(" ".join("Q" if c==board[r] else "." for c in range(n)))
+        print()
+        return 1
+    count=0
+    for col in range(n):
+        if is_safe(board, len(board), col):
+            count+=solve(n, board+[col])
+    return count
+
+n=int(input("Enter N: "))
+print("Solutions:", solve(n))
+
+
+
+b. Constraint satisfaction problem: Map Coloring
+
+graph = {'A':['B','C'],'B':['A','C','D'],'C':['A','B','D'],'D':['B','C']}
+colors = ['Red','Green','Blue']
+result = {}
+
+for node in graph:
+    for color in colors:
+        if all(result.get(n) != color for n in graph[node]):
+            result[node] = color
+            break
+
+for node in result:
+    print(node, "->", result[node])

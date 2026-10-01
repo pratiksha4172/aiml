@@ -1,0 +1,59 @@
+a. Depth First Search 
+
+graph = {
+    'A':['S','T','Z','O'],
+    'S':['R','F'],
+    'F':['B'],
+    'B':['G','U'],
+    'U':['H','V'],
+    'H':['E']
+}
+
+def dfs(graph, start, goal):
+    stack = [[start]]
+
+    while stack:
+        path = stack.pop()
+        node = path[-1]
+
+        if node == goal:
+            return path
+
+        for next in reversed(graph.get(node, [])):
+            stack.append(path + [next])
+
+path = dfs(graph, 'A', 'H')
+print(" -> ".join(path))
+print(" -> ".join(path))
+
+b. Breadth First Search
+
+from collections import deque
+
+graph = {
+    'A':['B','C'],
+    'B':['D','E'],
+    'C':['F'],
+    'D':[],
+    'E':['F'],
+    'F':[]
+}
+
+def bfs(graph, start, goal):
+    queue = [[start]]
+    visited = set()
+
+    while queue:
+        path = queue.pop(0)
+        node = path[-1]
+
+        if node == goal:
+            return path
+
+        if node not in visited:
+            visited.add(node)
+
+            for n in graph[node]:
+                queue.append(path + [n])
+
+print(" -> ".join(bfs(graph, 'A', 'F')))

@@ -1,0 +1,25 @@
+7. Write the program to demonstrate the following prolog-based 
+programs:
+a. Derive the predicate.
+
+batsman(sachin).
+cricketer(sachin).
+
+batsman_cricketer(X) :-
+    batsman(X),
+    cricketer(X).
+
+b]
+male(john).
+female(mary).
+
+parent(john, sam).
+parent(mary, sam).
+
+father(X,Y) :-
+    male(X),
+    parent(X,Y).
+
+mother(X,Y) :-
+    female(X),
+    parent(X,Y).

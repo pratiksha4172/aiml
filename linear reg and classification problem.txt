@@ -1,0 +1,47 @@
+a. Linear Regression
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
+X = np.array([[1],[2],[3],[4],[5]])
+y = np.array([35,40,50,55,65])
+
+model = LinearRegression()
+model.fit(X,y)
+
+pred = model.predict([[6]])
+yp = model.predict(X)
+
+print(f"Predicted marks for 6 hours: {pred[0]:.1f}")
+print(f"Equation: y = {model.coef_[0]:.1f} * X + {model.intercept_:.1f}")
+print(f"\nMSE: {mean_squared_error(y,yp):.1f}")
+print(f"MAE: {mean_absolute_error(y,yp):.1f}")
+print(f"RMSE: {np.sqrt(mean_squared_error(y,yp)):.2f}")
+print(f"R2 Score: {r2_score(y,yp):.4f}")
+
+
+ b. Classification Problems
+
+
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import *
+
+X=np.array([[1],[2],[3],[4],[5],[6],[7],[8]])
+y=np.array([0,0,0,0,1,1,1,1])
+
+m=LogisticRegression().fit(X,y)
+p=m.predict(X)
+pr=m.predict_proba(X)
+
+print("Log Loss:",round(log_loss(y,pr),4))
+print("Accuracy:",accuracy_score(y,p))
+print("Confusion Matrix:\n",confusion_matrix(y,p))
+print("Precision:",precision_score(y,p))
+print("Recall:",recall_score(y,p))
+print("F1 Score:",f1_score(y,p))
+
+x=np.array([[6]])
+print("\nFor 6 hours:", "Pass" if m.predict(x)[0] else "Fail")
+print("Prob Fail:",round(m.predict_proba(x)[0][0],4),
+      "Pass:",round(m.predict_proba(x)[0][1],4))
