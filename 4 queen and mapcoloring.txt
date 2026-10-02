@@ -1,24 +1,24 @@
 a. Simulate solution for 4-Queen / N-Queen problem
-
-def is_safe(board, row, col):
-    for r, c in enumerate(board):
-        if c==col or abs(c-col)==abs(r-row):
+def safe(b, r, c):
+    for i in range(len(b)):
+        if b[i] == c or abs(b[i]-c) == abs(i-r):
             return False
     return True
 
-def solve(n, board=[]):
-    if len(board)==n:
+def solve(n, b=[]):
+    if len(b) == n:
         for r in range(n):
-            print(" ".join("Q" if c==board[r] else "." for c in range(n)))
+            print(" ".join("Q" if c == b[r] else "." for c in range(n)))
         print()
         return 1
-    count=0
-    for col in range(n):
-        if is_safe(board, len(board), col):
-            count+=solve(n, board+[col])
-    return count
 
-n=int(input("Enter N: "))
+    total = 0
+    for c in range(n):
+        if safe(b, len(b), c):
+            total += solve(n, b+[c])
+    return total
+
+n = int(input("Enter N: "))
 print("Solutions:", solve(n))
 
 
